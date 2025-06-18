@@ -2,11 +2,12 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 import httpx
 from typing import Optional, List
+import os  
 
 app = FastAPI()
 
 security = HTTPBasic()
-PASSWORD = "supersecretpassword123"
+PASSWORD = os.getenv("SUPER_SECRET_PASSWORD")  
 
 def check_auth(creds: HTTPBasicCredentials = Depends(security)):
     if creds.password != PASSWORD:
